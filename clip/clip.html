@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>基于clip-path的碎片拼接效果</title>
+    <style>
+        .clip[style] {
+            opacity: 0;
+        }
+        .active .clip:not([style]) {
+            opacity: 0;
+            animation: fadeIn .1s .4s both;
+        }
+        .active .clip[style] {
+            will-change: transform;
+            animation: noTransform .5s both;
+        }
+
+        @keyframes noTransform {
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) rotate(0deg);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .image { position: absolute; }
+    </style>
+    <script src="clip.js"></script>
+    <script>
+        window.onload = function () {
+            var eleImage = document.getElementById('image');
+            clipPath(eleImage);
+        };
+    </script>
+</head>
+<body>
+<div class="box active">
+    <img id="image" class="image clip" src="1.jpeg">
+</div>
+</body>
+</html>

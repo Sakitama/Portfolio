@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>图片放大显示</title>
+<script type="text/javascript" src="../js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="../js/jquery.imagePreview.1.0.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("a.preview").preview();
+    });
+</script>
+<style type="text/css">
+    html {
+        overflow-y: scroll;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 84%;
+        background: #eeeeee;
+        color: #333333;
+        font-family: '宋体',Verdana, Geneva, sans-serif;
+    }
+    a, a:hover {
+        text-decoration: none;
+    }
+    .main_con {
+        padding: 0 20px 20px;
+    }
+    .test_list {
+        padding: 1em;
+        font-size: 1.1em;
+        border-bottom: 1px dashed #cccccc;
+        line-height: 1.4;
+        overflow: hidden;
+        zoom: 1;
+    }
+    a.preview img {
+        margin: 20px 10px;
+    }
+</style>
+</head>
+<body>
+<div class="main_con">
+    <div class="test_list">
+        <a class="preview" href="../1.jpg" title="cartoon">
+            <img src="../1.jpg">
+        </a>
+        <a class="preview" href="../2.jpg" title="cartoon">
+            <img src="../2.jpg">
+        </a>
+        <a class="preview" href="../3.jpg" title="cartoon">
+            <img src="../3.jpg">
+        </a>
+        <a class="preview" href="../4.jpg" title="cartoon">
+            <img src="../4.jpg">
+        </a>
+        <a class="preview" href="../5.jpg" title="cartoon">
+            <img src="../5.jpg">
+        </a>
+    </div>
+</div>
+</body>
+</html>

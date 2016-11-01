@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>js实现的弹出层效果</title>
+    <style type="text/css">
+        #tinybox {
+            position: absolute;
+            display: none;
+            padding: 10px;
+            background: #ffffff url(../image/preload.gif) no-repeat 50% 50%;
+            border: 10px solid #e3e3e3;
+            z-index: 2;
+        }
+        #tinymask {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #000;
+            z-index: 1;
+        }
+        #tinycontent {
+            background: #ffffff;
+            font-size: 1.1em;
+        }
+    </style>
+    <script type="text/javascript" src="../js/tinybox.js"></script>
+</head>
+<body>
+<a class="ml20" href="#" id="click_test1">效果预览</a>
+<a class="ml20" href="#" id="click_test2">效果预览</a>
+<a class="ml20" href="#" id="click_test3">效果预览</a>
+<a class="ml20" href="#" id="click_test4">效果预览</a>
+<script type="text/javascript">
+    T$('click_test1').onclick = function () {
+        TINY.box.show('blank-for-test.html', 1, 300, 150, 1);
+    };
+
+    var content2 = "<img width='640' height='466' src='../image/github.jpg'>";
+    T$('click_test2').onclick = function () {
+        TINY.box.show(content2, 0, 0, 0, 1);
+    };
+
+    var content3 = "<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='550' height='400'><param name='movie' value='../flash/as3_clock_2.swf'><param name='quality' value='high'><param name='wmode' value='opaque'><embed height='400' width='550'  src='../flash/as3_clock_2.swf' type='application/x-shockwave-flash'></embed></object>";
+    T$('click_test3').onclick = function () {
+        TINY.box.show(content3, 0, 0, 0, 1);
+    };
+
+    var content4 = "该浮动层将在3秒钟内消失。";
+    T$('click_test4').onclick = function () {
+        TINY.box.show(content4, 0, 0, 0, 0, 3);
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>弹幕发射器</title>
+    <script src="https://cdn.wilddog.com/sdk/js/2.1.2/wilddog.js"></script>
+    <script src="https://cdn.wilddog.com/js/vendor/jquery-1.11.2.min.js"></script>
+    <style>
+        .s_txt {
+            width: 388px;
+            height: 34px;
+            border-radius: 3px;
+            border: 1px solid rgb(204, 204, 204);
+            padding-left: 10px;
+        }
+
+        .s_sub {
+            border: 1px solid rgb(230, 80, 30);
+            color: rgb(230, 80, 0);
+            border-radius: 3px;
+            text-align: center;
+            padding: 0;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            width: 159px;
+            background-color: white;
+        }
+
+        .s_del {
+            border: 1px solid rgb(176, 168, 165);
+            color: rgb(176, 168, 165);
+            border-radius: 3px;
+            text-align: center;
+            padding: 0;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            width: 159px;
+            background-color: white;
+        }
+
+        .dm {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .dm_screen {
+            border: 1px solid rgb(229, 229, 229);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dm .dm_screen .dm_mask {
+            width: 100%;
+            height: 380px;
+        }
+
+        .dm .dm_screen .dm_show div {
+            font-size: 22px;
+            line-height: 36px;
+            font-weight: 500;
+            color: #fff;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            //提示：已经在页面导航部分的Settings中的JavaScript部分引入了wildog.js和jquery.js
+            //在www.wildog.com 注册一个账号，创建一个应用，自动生成一个url,替换下边url即可
+            var config = {
+                syncURL: "https://getbarrage.wilddogio.com" //输入节点 URL
+            };
+            wilddog.initializeApp(config);
+            var ref = wilddog.sync().ref();
+            var arr = [];
+            var s_txt = $(".s_txt");
+            var s_sub = $(".s_sub");
+            var s_del = $(".s_del");
+            var dm_show = $(".dm_show");
+            var dm_mask = $(".dm_mask");
+            //把数据提交到野狗云
+            s_sub.click(function () {
+                var text = s_txt.val();
+                ref.child('message').push(text);
+                s_txt.val('');
+            });
+            //响应按键点击事件
+            s_txt.keypress(function (event) {
+                if (event.keyCode == "13") {
+                    s_sub.trigger('click');
+                }
+            });
+            //响应按键清除事件，清屏则将云端数据全部删除
+            s_del.click(function () {
+                ref.remove();
+                arr = [];
+                dm_show.empty();
+            });
+            //监听云端数据变更，云端数据变化，弹幕框里数据也跟着变化。
+            //监听云端message节点下的数据是否有增加，如果增加则把值取出来，创建一个jQuery对象，把值作为它的文本内容并且将这个对象插入到dm_show节点下，同时开始运动
+            ref.child('message').on('child_added', function (snapshot) {
+                console.log(snapshot);
+                var text = snapshot.val();
+                arr.push(text);
+                var textObj = $("<div class=\"dm_message\"></div>");
+                textObj.text(text);
+                dm_show.append(textObj);
+                moveObj(textObj);
+            });
+            //如果云端数据节点被删除，则清空本地款缓存的内容，同时清空dm_show下的所有节点
+            ref.on('child_removed', function () {
+                arr = [];
+                dm_show.empty();
+            });
+            //按照时间规则显示弹幕内容。
+            var topMin = dm_mask.offset().top;
+            var topMax = topMin + dm_mask.height();
+            var _top = topMin;
+
+            var moveObj = function (obj) {
+                var _left = dm_mask.width() - obj.width();
+                _top = _top + 50;
+                if (_top > (topMax - 50)) {
+                    _top = topMin;
+                }
+                obj.css({
+                    left: _left,
+                    top: _top,
+                    color: getRandomColor()
+                });
+                var time = 20000 + 10000 * Math.random();
+                obj.animate({
+                    left: "-" + obj.width() + "px"
+                }, time, function () {
+                    obj.remove();
+                });
+            };
+            //获取随机颜色
+            var getRandomColor = function () {
+                return '#' + (function (h) {
+                            return new Array(7 - h.length).join("0") + h;
+                        })((Math.random() * 0x1000000 >> 0).toString(16));
+            };
+            //每隔3s从缓存中随机取出一条弹幕开始滚动
+            var getAndRun = function () {
+                if (arr.length > 0) {
+                    var n = Math.floor(Math.random() * arr.length + 1) - 1;
+                    var textObj = $("<div>" + arr[n] + "</div>");
+                    $(".dm_show").append(textObj);
+                    moveObj(textObj);
+                }
+
+                setTimeout(getAndRun, 3000);
+            };
+
+            jQuery.fx.interval = 50;
+            getAndRun();
+        });
+    </script>
+</head>
+<body>
+<div class="dm">
+    <div class="dm_screen">
+        <div class="dm_mask"></div>
+        <div class="dm_show">
+            <!-- <div>text message</div>  -->
+        </div>
+    </div>
+    <div class="send">
+        <div class="s_fiter">
+            <div class="s_con">
+                <p>
+                    <input placeholder="说点什么?" class="s_txt" type="text" />
+                </p>
+                <p>
+                    <input type="button" value="发 射" class="s_sub" />
+                    <input type="button" value="清 屏" class="s_del" />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>锤子手机官网效果</title>
+	<style>
+		body, ul, li, img {
+			padding: 0;
+			margin: 0;
+		}
+		li {
+			list-style: none;
+		}
+		img {
+			border: none;
+		}
+		#div1 {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			overflow: hidden;
+		}
+		#oUl {
+			width: 100%;
+			position: absolute;
+			left: 0;
+			bottom: -20px;
+			will-change: transform;
+			-moz-transition: transform .4s cubic-bezier(.445, .05, .55, .95);
+			-webkit-transition: transform .4s cubic-bezier(.445, .05, .55, .95);
+			-o-transition: transform .4s cubic-bezier(.445, .05, .55, .95);
+			transition: transform .4s cubic-bezier(.445, .05, .55, .95);
+		}
+		#oUl li {
+			float: left;
+			width: 13.8%; /*预设宽度，防止 JavaScript 没有加载好的时候图片过大影响布局*/
+			height: auto;
+			will-change: transform;
+			-moz-transition: transform .25s cubic-bezier(.445, .05, .55, .95) .15s;
+			-webkit-transition: transform .25s cubic-bezier(.445, .05, .55, .95) .15s;
+			-o-transition: transform .25s cubic-bezier(.445, .05, .55, .95) .15s;
+			transition: transform .25s cubic-bezier(.445, .05, .55, .95) .15s;
+		}
+		#oUl li img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+			cursor: pointer;
+			will-change: transform;
+			-moz-transition: transform .3s cubic-bezier(0, .68, .86, .98);
+			-webkit-transition: transform .3s cubic-bezier(0, .68, .86, .98);
+			-o-transition: transform .3s cubic-bezier(0, .68, .86, .98);
+			transition: transform .3s cubic-bezier(0, .68, .86, .98);
+		}
+		#oUl li:nth-child(1) img {
+			-webkit-transform: translate3d(0, 61.95%, 0);
+			-moz-transform: translate3d(0, 61.95%, 0);
+			-ms-transform: translate3d(0, 61.95%, 0);
+			-o-transform: translate3d(0, 61.95%, 0);
+			transform: translate3d(0, 61.95%, 0);
+		}
+		#oUl li:nth-child(2) img {
+			-webkit-transform: translate3d(0, 47.8%, 0);
+			-moz-transform: translate3d(0, 47.8%, 0);
+			-ms-transform: translate3d(0, 47.8%, 0);
+			-o-transform: translate3d(0, 47.8%, 0);
+			transform: translate3d(0, 47.8%, 0);
+		}
+		#oUl li:nth-child(3) img {
+			-webkit-transform: translate3d(0, 67.69%, 0);
+			-moz-transform: translate3d(0, 67.69%, 0);
+			-ms-transform: translate3d(0, 67.69%, 0);
+			-o-transform: translate3d(0, 67.69%, 0);
+			transform: translate3d(0, 67.69%, 0);
+		}
+		#oUl li:nth-child(4) img {
+			-webkit-transform: translate3d(0, 47.8%, 0);
+			-moz-transform: translate3d(0, 47.8%, 0);
+			-ms-transform: translate3d(0, 47.8%, 0);
+			-o-transform: translate3d(0, 47.8%, 0);
+			transform: translate3d(0, 47.8%, 0);
+		}
+		#oUl li:nth-child(5) img {
+			-webkit-transform: translate3d(0, 27.92%, 0);
+			-moz-transform: translate3d(0, 27.92%, 0);
+			-ms-transform: translate3d(0, 27.92%, 0);
+			-o-transform: translate3d(0, 27.92%, 0);
+			transform: translate3d(0, 27.92%, 0);
+		}
+		#oUl li:nth-child(6) img {
+			-webkit-transform: translate3d(0, 50.67%, 0);
+			-moz-transform: translate3d(0, 50.67%, 0);
+			-ms-transform: translate3d(0, 50.67%, 0);
+			-o-transform: translate3d(0, 50.67%, 0);
+			transform: translate3d(0, 50.67%, 0);
+		}
+		#oUl li:nth-child(7) img {
+			-webkit-transform: translate3d(0, 61.95%, 0);
+			-moz-transform: translate3d(0, 61.95%, 0);
+			-ms-transform: translate3d(0, 61.95%, 0);
+			-o-transform: translate3d(0, 61.95%, 0);
+			transform: translate3d(0, 61.95%, 0);
+		}
+		#oUl li.prev {
+			-webkit-transform: translate3d(-13%, 0, 0);
+			-moz-transform: translate3d(-13%, 0, 0);
+			-ms-transform: translate3d(-13%, 0, 0);
+			-o-transform: translate3d(-13%, 0, 0);
+			transform: translate3d(-13%, 0, 0);
+		}
+		#oUl li.next {
+			-webkit-transform: translate3d(13%, 0, 0);
+			-moz-transform: translate3d(13%, 0, 0);
+			-ms-transform: translate3d(13%, 0, 0);
+			-o-transform: translate3d(13%, 0, 0);
+			transform: translate3d(13%, 0, 0);
+		}
+		#abc li:nth-child(n) img {
+			-webkit-transform: translate3d(0, 20%, 0) !important;
+			-moz-transform: translate3d(0, 20%, 0) !important;
+			-ms-transform: translate3d(0, 20%, 0) !important;
+			-o-transform: translate3d(0, 20%, 0) !important;
+			transform: translate3d(0, 20%, 0) !important;
+		}
+		#abc ul li.larger img {
+			-webkit-transform: translate3d(0, 5%, 0) !important;
+			-moz-transform: translate3d(0, 5%, 0) !important;
+			-ms-transform: translate3d(0, 5%, 0) !important;
+			-o-transform: translate3d(0, 5%, 0) !important;
+			transform: translate3d(0, 5%, 0) !important;
+		}
+	</style>
+<script>
+	(function () {
+
+		/**
+		 * 获取元素在页面上的偏移距离
+		 *
+		 * @param element
+		 * @returns {number|Number}
+         */
+		var getElementLeft = function (element) {
+			var actualLeft = element.offsetLeft;
+			var current = element.offsetParent;
+			while (current != null) {
+				actualLeft += current.offsetLeft;
+				current = current.offsetParent;
+			}
+			return actualLeft;
+		};
+
+		/**
+		 * 添加事件
+		 *
+		 * @param element
+		 * @param type
+         * @param handler
+         */
+		var addEvent = function (element, type, handler) {
+			if (element.addEventListener) {
+				element.addEventListener(type, handler, false);
+			} else if (element.attachEvent) {
+				element.attachEvent("on" + type, handler);
+			} else {
+				element["on" + type] = handler;
+			}
+		};
+
+		/**
+		 * 获取事件对象
+		 *
+		 * @param event
+		 * @returns {Event}
+         */
+		var getEvent = function (event) {
+			return event ? event : window.event;
+		};
+
+		/**
+		 * 计算元素的宽度
+		 *
+		 * @param objectSet
+         * @param number
+         */
+		var calculateWidth = function (objectSet, number) {
+			for (var i = 0; i < objectSet.length; i++) {
+				objectSet[i].style.width = 1 / number * 100 + "%";
+			}
+		};
+
+		/**
+		 * 计算元素中心点的偏移距离
+		 *
+		 * @param ObjectArray
+		 * @returns {Array}
+         */
+		var calculateMiddleOffset = function (ObjectArray) {
+			var result = [];
+			for (var j = 0; j < ObjectArray.length; j++) {
+				//元素中心点的偏移距离
+				result.push(getElementLeft(ObjectArray[j]) + ObjectArray[j].offsetWidth / 2);
+			}
+			return result;
+		};
+
+		/**
+		 * 获取事件目标
+		 *
+		 * @param event
+		 * @returns {*|Element|Object}
+         */
+		var getTarget = function (event) {
+			return event.target || event.srcElement;
+		};
+
+		/**
+		 * 移除事件
+		 *
+		 * @param element
+		 * @param type
+         * @param handler
+         */
+		var removeEvent = function (element, type, handler) {
+			if (element.removeEventListener) {
+				element.removeEventListener(type, handler, false);
+			} else if (element.detachEvent) {
+				element.detachEvent("on" + type, handler);
+			} else {
+				element["on" + type] = null;
+			}
+		};
+
+		window.onload = function () {
+			var aImg = document.getElementsByTagName("img");
+			var aLi = document.getElementsByTagName("li");
+			var oUl = document.getElementById("oUl");
+			var div1 = document.getElementById("div1");
+			var result = calculateMiddleOffset(aImg);
+			var effectRange = oUl.offsetWidth / 7 * 5;
+			var mouseClientX;
+			var loop;
+			var onOff = true;
+
+			var animate = function () {
+				for (var j = 0; j < aImg.length; j++) {
+					//鼠标位置和 li 中心点的 x 轴距离
+					var distance = Math.abs(mouseClientX - result[j]);
+					//计算影响因子
+					if (distance > effectRange) {
+						distance = effectRange;
+					}
+					var scale = distance / effectRange * 60;
+					aImg[j].index = j;
+					aImg[j].style.webkitTransform = "translate3d(0, " + scale + "%, 0)";
+					aImg[j].style.mozTransform = "translate3d(0, " + scale + "%, 0)";
+					aImg[j].style.msTransform = "translate3d(0, " + scale + "%, 0)";
+					aImg[j].style.oTransform = "translate3d(0, " + scale + "%, 0)";
+					aImg[j].style.transform = "translate3d(0, " + scale + "%, 0)";
+				}
+			};
+
+			calculateWidth(aLi, 7);
+
+			var mouseMoveHandler = function (event) {
+				event = getEvent(event);
+				mouseClientX = event.clientX;
+				loop = requestAnimationFrame(animate);
+			};
+			var mouseOutHandler = function () {
+				cancelAnimationFrame(loop);
+				for (var j = 0; j < aImg.length; j++) {
+					aImg[j].removeAttribute("style");
+				}
+			};
+
+			var addEventToUl = function () {
+				addEvent(oUl, "mousemove", mouseMoveHandler);
+				addEvent(oUl, "mouseout", mouseOutHandler);
+			};
+			addEventToUl();
+
+			addEvent(oUl, "click", function (event) {
+				event = getEvent(event);
+				var target = getTarget(event);
+				if (target.tagName.toLowerCase() == "img") {
+					if (onOff) {
+						document.body.id = "abc";
+
+						target.parentNode.className = "larger";
+
+						if (target.parentNode.previousElementSibling) {
+							target.parentNode.previousElementSibling.className = "prev";
+						}
+						if (target.parentNode.nextElementSibling) {
+							target.parentNode.nextElementSibling.className = "next";
+						}
+						//让点击的图片居中显示
+						var offsetValue = oUl.offsetWidth / 2 - result[target.index];
+						oUl.style.transform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+						oUl.style.webkitTransform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+						oUl.style.mozTransform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+						oUl.style.msTransform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+						oUl.style.oTransform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+						oUl.style.transform = "translate3d(" + offsetValue * 3 + "px, 0, 0) scale(3)";
+
+						removeEvent(oUl, "mousemove", mouseMoveHandler);
+						removeEvent(oUl, "mouseout", mouseOutHandler);
+
+						onOff = false;
+					} else {
+						oUl.removeAttribute("style");
+
+						document.body.id = "";
+
+						for (var j = 0; j < aLi.length; j++) {
+							aLi[j].className = "";
+						}
+
+						addEventToUl();
+
+						onOff = true;
+					}
+				}
+			});
+		};
+	})();
+</script>
+</head>
+<body>
+<div id="div1">
+	<ul id="oUl">
+		<li>
+			<img src="./img/1-1.png">
+		</li>
+		<li>
+			<img src="./img/2-2.png">
+		</li>
+		<li>
+			<img src="./img/3-3.png">
+		</li>
+		<li>
+			<img src="./img/4-4.png">
+		</li>
+		<li>
+			<img src="./img/5-5.png">
+		</li>
+		<li>
+			<img src="./img/6-6.png">
+		</li>
+		<li>
+			<img src="./img/7-7.png">
+		</li>
+	</ul>
+</div>
+</body>
+</html>
